@@ -1,3 +1,4 @@
+import { filterMessage } from "./helpers.js";
 import { respondWithError, respondWithJSON } from "./json.js";
 import { httpHandler } from "./readiness";
 
@@ -9,11 +10,12 @@ export const handlerValidateChirp: httpHandler = async (req, res) => {
 
     const maxChirpLength = 140;
     if (params.body.length > maxChirpLength) {
-        respondWithError(res, 400, "Chirp is too long");
-        return;
+        throw new Error("Chirp is too long");
     }
 
+    const cleanedBody = filterMessage(params.body);
+
     respondWithJSON(res, 200, {
-        valid: true,
+        cleanedBody
     });
 }
