@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 
 export function respondWithError(res: Response, code: number, message:string) {
     respondWithJSON(res, code, { error: message });

@@ -1,7 +1,7 @@
 import { BadRequestError } from "./errors.js";
 import { filterMessage } from "./helpers.js";
 import { respondWithJSON } from "./json.js";
-import { httpHandler } from "./readiness";
+import { httpHandler } from "./readiness.js";
 
 export const handlerValidateChirp: httpHandler = async (req, res) => {
     type parameters = {

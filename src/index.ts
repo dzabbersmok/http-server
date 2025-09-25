@@ -9,6 +9,7 @@ import { handlerMetrics } from "./api/metrics.js";
 import { handlerReset } from "./api/reset.js";
 import { handlerValidateChirp } from "./api/validate.js";
 import { config } from "./config.js";
+import { handlerCreateUser } from "./api/create.js";
 
 const migrationClient = postgres(config.db.url, { max: 1 });
 await migrate(drizzle(migrationClient), config.db.migrationConfig);
@@ -46,6 +47,14 @@ app.get("/admin/metrics", async (req, res, next) => {
 app.post("/admin/reset", async (req, res, next) => {
     try {
         await handlerReset(req, res);
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.post("/api/users", async (req, res, next) => {
+    try {
+        await handlerCreateUser(req, res);
     } catch (error) {
         next(error);
     }
