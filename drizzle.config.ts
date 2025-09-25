@@ -1,11 +1,11 @@
 import { defineConfig } from "drizzle-kit";
-import { config } from "./src/config";
+import { config, migrationConfig } from "./src/config";
 
 export default defineConfig({
   schema: "src/db/schema.ts",
-  out: "src/db/migrations",
+  out: migrationConfig.migrationsFolder,
   dialect: "postgresql",
   dbCredentials: {
-    url: config.dbURL,
+    url: config.db.url,
   },
 });
