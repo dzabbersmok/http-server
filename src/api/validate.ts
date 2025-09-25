@@ -1,5 +1,6 @@
+import { BadRequestError } from "./errors.js";
 import { filterMessage } from "./helpers.js";
-import { respondWithError, respondWithJSON } from "./json.js";
+import { respondWithJSON } from "./json.js";
 import { httpHandler } from "./readiness";
 
 export const handlerValidateChirp: httpHandler = async (req, res) => {
@@ -10,7 +11,7 @@ export const handlerValidateChirp: httpHandler = async (req, res) => {
 
     const maxChirpLength = 140;
     if (params.body.length > maxChirpLength) {
-        throw new Error("Chirp is too long");
+        throw new BadRequestError("Chirp is too long. Max length is 140");
     }
 
     const cleanedBody = filterMessage(params.body);
